@@ -1,0 +1,34 @@
+<% content_for :title, "Planos" %>
+
+<section class="hero">
+  <h1>Escolha o plano ideal</h1>
+  <p>Comece grátis e evolua conforme o seu time cresce. Cancele quando quiser.</p>
+</section>
+
+<div class="plans">
+  <% @plans.each_with_index do |plan, i| %>
+    <article class="plan <%= "featured" if i == 1 %>">
+      <% if i == 1 %><span class="tag">MAIS POPULAR</span><% end %>
+      <h3><%= plan.name %></h3>
+      <div class="price"><%= plan.price_brl %> <small><%= plan.interval_label %></small></div>
+      <ul>
+        <% plan.feature_list.each do |feature| %>
+          <li><%= feature %></li>
+        <% end %>
+      </ul>
+
+      <% if @current_plan_id == plan.id %>
+        <span class="btn current block">Plano atual</span>
+      <% elsif authenticated? %>
+        <%= button_to "Assinar #{plan.name}", checkouts_path, params: { plan_id: plan.id }, class: "btn block" %>
+      <% else %>
+        <%= link_to "Assinar #{plan.name}", new_registration_path, class: "btn block" %>
+      <% end %>
+    </article>
+  <% end %>
+</div>
+
+<p class="note" style="text-align:center">
+  Pagamentos processados com segurança pela <strong>Stripe</strong>. Em ambiente de
+  desenvolvimento, configure <code>STRIPE_SECRET_KEY</code> para ativar o checkout real.
+</p>

@@ -1,0 +1,27 @@
+<% content_for :title, "Minha conta" %>
+
+<h1 class="page-title">Minha conta</h1>
+
+<div class="panel account-card">
+  <div>
+    <p style="margin:0 0 6px; color:var(--muted)"><%= Current.user.email_address %></p>
+    <% if @subscription %>
+      <h2 style="margin:0"><%= @subscription.plan.name %></h2>
+      <p style="margin:4px 0 0; color:var(--muted)"><%= @subscription.plan.price_brl %> <%= @subscription.plan.interval_label %></p>
+    <% else %>
+      <h2 style="margin:0">Sem assinatura ativa</h2>
+      <p style="margin:4px 0 0; color:var(--muted)">Escolha um plano para liberar todos os recursos.</p>
+    <% end %>
+  </div>
+  <div>
+    <% if @subscription %>
+      <span class="badge active">Ativa</span>
+    <% else %>
+      <span class="badge none">Inativa</span>
+    <% end %>
+  </div>
+</div>
+
+<div style="margin-top:22px">
+  <%= link_to "Ver planos", plans_path, class: "btn ghost" %>
+</div>

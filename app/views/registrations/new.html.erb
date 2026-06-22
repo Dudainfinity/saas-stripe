@@ -1,0 +1,23 @@
+<% content_for :title, "Criar conta" %>
+<div class="auth panel">
+  <h1 class="page-title">Criar conta</h1>
+  <%= form_with model: @user, url: registration_path do |form| %>
+    <% if @user.errors.any? %>
+      <div class="errors"><%= @user.errors.full_messages.to_sentence %></div>
+    <% end %>
+    <div class="field">
+      <%= form.label :email_address, "E-mail" %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username" %>
+    </div>
+    <div class="field">
+      <%= form.label :password, "Senha" %>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Mínimo de 6 caracteres" %>
+    </div>
+    <div class="field">
+      <%= form.label :password_confirmation, "Confirmar senha" %>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password" %>
+    </div>
+    <%= form.submit "Criar conta", class: "btn block" %>
+  <% end %>
+  <p class="alt">Já tem conta? <%= link_to "Entrar", new_session_path %></p>
+</div>
